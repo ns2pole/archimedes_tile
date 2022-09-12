@@ -1,8 +1,10 @@
 class Rectangle extends RegularPolygon {
     constructor(v1, v2, v3, v4) {
-        this.v1 = v1;
-        this.v2 = v2;
-        this.v3 = v3;
-        this.v4 = v4;
+        let vertexes = new Array();
+        vertexes.push(v1);
+        vertexes.push(v2);
+        vertexes.push(v3);
+        vertexes.push(v4);
+        super(vertexes);
     }
 }
