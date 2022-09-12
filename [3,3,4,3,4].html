@@ -1,40 +1,32 @@
 <script src="https://cdn.jsdelivr.net/npm/p5@0.10.2/lib/p5.js"></script>
 <script src="./Vertex.js"></script>
+<script src="./Edge.js"></script>
 <script src="./Vec2D.js"></script>
 <script src="./Line.js"></script>
+<script src="./RegularPolygon.js"></script>
 <script src="./Const.js"></script>
+<script src="./Triangle.js"></script>
+<script src="./Rectangle.js"></script>
+<script src="./Plane.js"></script>
 <script>
-var WIDTH_SIZE = 1000
-var HEIGHT_SIZE = 600
- 
-// initially, call once
-function setup(){      
-    createCanvas(WIDTH_SIZE, HEIGHT_SIZE); //表示する領域を確保 
-    displayCount = 0; //カウンタ
-    frameRate(10000);
-}
- 
-// this function is called per 1 frame
-function draw() {
-    //background(255, 255, 255); //背景描画
-    //rect(displayCount, 100, 200, 200); //四角形描画　rect(表示するx座標, 表示するy座標, 横幅, 縦幅)
-    //fill("red");
-    //noStroke();
-    //triangle(0, 100, 0 + 100, 100, 0 + 50, 187);
-    //fill("blue");
-    //noStroke();
-    //triangle(0, 100, 0 + 100, 100, 0 + 50, 13);
-    background(255,100,0); //背景描画
-    v1 = new Vertex(100, 100);
-    v2 = new Vertex(200, 200);
-    directionVector = new Vec2D(100, 150);
-    line1 = new Line(v1, directionVector.getNormalizedVec());
-    line1.draw();
-    circle(v2.x, v2.y, 10);
-    line2 = new Line(v2, directionVector.getNormalizedVec());
-    line2.draw();
-    v3 = line1.getCrossVertexTo(line2);
-    v3.draw()
-    displayCount++; //カウンタ+1
-}
+    // initially, call once
+    'use srict';
+    function setup(){      
+        createCanvas(WIDTH_SIZE, HEIGHT_SIZE); //表示する領域を確保 
+        background(255,100,0); //背景描画
+        let plane = new Plane();
+        fill("blue");
+        plane.init();
+        plane.draw();
+        fill("green");
+        plane.initVertex.draw();
+        fill("red");
+        plane.vertexOfOriginNext.draw();
+        frameRate(10);
+    }
+    
+    // this function is called per 1 frame
+    function draw() {
+        
+    }
 </script>

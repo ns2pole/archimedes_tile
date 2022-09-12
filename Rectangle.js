@@ -7,4 +7,10 @@ class Rectangle extends RegularPolygon {
         vertexes.push(v4);
         super(vertexes);
     }
+
+    // return Rectangle object
+    getRefrectedRectangleFor(edge) {
+        const refrectedPolygon = this.getRefrectedPolygonFor(edge);
+        return new Rectangle(refrectedPolygon.vertexes[0], refrectedPolygon.vertexes[1], refrectedPolygon.vertexes[2], refrectedPolygon.vertexes[3]);
+    }
 }

@@ -16,7 +16,7 @@ class Line {
     }
 
     getCrossVertexTo(line) {
-        let param = (line.vertex.getVec2D().getAreaGeneretedBy(line.directionVec2D) - this.vertex.getVec2D().getAreaGeneretedBy(line.directionVec2D)) / this.directionVec2D.getAreaGeneretedBy(line.directionVec2D);
+        const param = (line.vertex.getVec2D().getAreaGeneretedBy(line.directionVec2D) - this.vertex.getVec2D().getAreaGeneretedBy(line.directionVec2D)) / this.directionVec2D.getAreaGeneretedBy(line.directionVec2D);
         return new Vertex(this.vertex.x + this.directionVec2D.x * param, this.vertex.y + this.directionVec2D.y * param);
     }
 

@@ -18,12 +18,20 @@ class RegularPolygon {
     );
   }
 
+  getRefrectedPolygonFor(edge) {
+    let refrectedVertexes = new Array();
+    this.vertexes.forEach((vertex) => {
+        refrectedVertexes.push(vertex.getRefrectedVertexFor(edge));
+    });
+    return new RegularPolygon(refrectedVertexes);
+  }
+
   draw() {
     this.edges.forEach((edge) => {
         edge.draw();
     });
+    this.vertexes.forEach((vertex) => {
+      vertex.draw();
+  });
   }
-    static getFor(edge) {
-        
-    } 
 }

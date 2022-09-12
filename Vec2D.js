@@ -24,8 +24,8 @@ class Vec2D {
     }
 
     getNormalizedVec() {
-        let length = this.getNorm();
-        return new Vec2D(this.x / length, this.y / length);
+        const norm = this.getNorm();
+        return new Vec2D(this.x, this.y).getMultiplicatedVecBy(1 / norm);
     }
 
     getAddedVecFor(vec2D) {
@@ -43,5 +43,16 @@ class Vec2D {
 
     getAreaGeneretedBy(vec2D) {
         return (this.x * vec2D.y - this.y * vec2D.x);
+    }
+
+    static getRandomNormalizedVec() {
+        const randomAngle = Math.random() * 2 * Math.PI;
+        return new Vec2D(Math.cos(randomAngle), Math.sin(randomAngle));
+    }
+
+    getVecRoteatedBy(radian) {
+        const cos = Math.cos(radian);
+        const sin = Math.sin(radian);
+        return new Vec2D(this.x * cos - this.y * sin, this.x * sin + this.y * cos);
     }
 }

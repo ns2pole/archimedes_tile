@@ -21,20 +21,16 @@ class Vertex {
         const distance = this.getDistanceTo(edge.getLine());
         const normalVec2D = line.directionVec2D.getNormalVec();
         const vecToResult = normalVec2D.getMultiplicatedVecBy(distance).getMultiplicatedVecBy(2);
-        return this.getVertexActionBy(vecToResult);
+        return this.getVertexActionedBy(vecToResult);
     }
 
-    getVertexActionBy(vec2D) {
+    getVertexActionedBy(vec2D) {
         return new Vertex(this.x + vec2D.x, this.y + vec2D.y);
     }
 
-    getVec2DTo(vertex) {
-        return new Vec2D(vertex.x - this.x, vertex.y - this.y);
-    }
-
     getDistanceTo(line) {
-        let normalLine = new Line(this, line.directionVec2D.getNormalVec());
-        let crossVertex = normalLine.getCrossVertexTo(line);
+        const normalLine = new Line(this, line.directionVec2D.getNormalVec());
+        const crossVertex = normalLine.getCrossVertexTo(line);
         return this.getDistanceBetween(crossVertex);
     }
 

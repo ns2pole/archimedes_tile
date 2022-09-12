@@ -7,13 +7,18 @@ class Triangle extends RegularPolygon {
         super(vertexes);
     }
 
-    getRefrectedTriangleFor(edge) {
-        let refrectedVertexes = new Array();
-        this.vertexes.forEach((vertex) => {
-            refrectedVertexes.push(vertex.getRefrectedVertexFor(edge));
-        });
-        return new Triangle(refrectedVertexes[0], refrectedVertexes[1], refrectedVertexes[2]);
+    // return Triangle object
+    getRefrectedTriangeFor(edge) {
+        const refrectedPolygon = this.getRefrectedPolygonFor(edge);
+        return new Triangle(refrectedPolygon.vertexes[0], refrectedPolygon.vertexes[1], refrectedPolygon.vertexes[2]);
     }
 
+    // return Rectangle object on anticlockwise side for edge
+    static getTriangleFor(edge) {
+        const vec2D = edge.getVec2D();
+        const rotetedVec = vec2D.getVecRoteatedBy(Math.PI / 3);
+        const thirdVertex = edge.v1.getVertexActionedBy(rotetedVec);
+        return new Triangle(edge.v1, edge.v2, thirdVertex);
+    }
     
 }
