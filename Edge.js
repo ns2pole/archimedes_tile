@@ -1,8 +1,18 @@
 //pair of vertex class
 class Edge {
     constructor(v1, v2) {
-        this.v1 = v1;
-        this.v2 = v2;
+        Object.defineProperty(
+            this,
+            'v1', {
+              value: v1
+            }
+        );
+        Object.defineProperty(
+            this,
+            'v2', {
+              value: v2
+            }
+        );
     }
 
     getLength() {
@@ -14,7 +24,11 @@ class Edge {
             return new Line(this.v1, new Vec2D(0, 1));
         } else {
             let inclination = (this.v2.y - this.v1.y) / (this.v2.x - this.v1.x);
-            return new Line(this.v1v1, new Vec2D(1, inclination).getNormalizedVec());
+            return new Line(this.v1, new Vec2D(1, inclination).getNormalizedVec());
         }
+    }
+
+    draw() {
+        line(this.v1.x, this.v1.y, this.v2.x, this.v2.y);
     }
 }

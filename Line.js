@@ -1,8 +1,18 @@
 // "directionVec2D" mean normalized vec2D
 class Line {
     constructor(vertex, directionVec2D) {
-        this.vertex = vertex;
-        this.directionVec2D = directionVec2D;
+        Object.defineProperty(
+            this,
+            'vertex', {
+              value: vertex
+            }
+        );
+        Object.defineProperty(
+            this,
+            'directionVec2D', {
+              value: directionVec2D
+            }
+        );
     }
 
     getCrossVertexTo(line) {

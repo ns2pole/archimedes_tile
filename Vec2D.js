@@ -1,10 +1,21 @@
+// this class means direction vecter two dimension
 class Vec2D {
     constructor(x, y) {
-        this.x = x;
-        this.y = y;
+        Object.defineProperty(
+            this,
+            'x', {
+              value: x
+            }
+        );
+        Object.defineProperty(
+            this,
+            'y', {
+              value: y
+            }
+        );
     }
 
-    getVecMultiplicationBy(scalar) {
+    getMultiplicatedVecBy(scalar) {
         return new Vec2D(this.x * scalar, this.y * scalar);
     }
 
@@ -18,14 +29,11 @@ class Vec2D {
     }
 
     getAddedVecFor(vec2D) {
-        let clone = new Vec2D(this.x, this.y);
-        clone.x += vec2D.x;
-        clone.y += vec2D.y;
-        return clone;
+        return new Vec2D(this.x + vec2D.x, this.y + vec2D.y);
     }
 
     getInverseVec() {
-        return this.getVecMultiplicationBy(-1);
+        return this.getMultiplicatedVecBy(-1);
     }
 
     //rotate by 90 degree anticlockwise
@@ -34,6 +42,6 @@ class Vec2D {
     }
 
     getAreaGeneretedBy(vec2D) {
-        return this.x * vec2D.y - this.y * vec2D.x;
+        return (this.x * vec2D.y - this.y * vec2D.x);
     }
 }
