@@ -9,12 +9,12 @@ class Edge {
         return Math.sqrt(Math.pow(this.v2.x - this.v1.x, 2) + Math.pow(this.v2.y - this.v1.y, 2));
     }
 
-    getStraightLine() {
+    getLine() {
         if(this.v1.x == this.v2.x) {
-            return new StraightLine(this.v1, new Vec2D(0, 1));
+            return new Line(this.v1, new Vec2D(0, 1));
         } else {
             let inclination = (this.v2.y - this.v1.y) / (this.v2.x - this.v1.x);
-            return new StraightLine(this.v1v1, new Vec2D(1, inclination).getNormalizedVec());
+            return new Line(this.v1v1, new Vec2D(1, inclination).getNormalizedVec());
         }
     }
 }

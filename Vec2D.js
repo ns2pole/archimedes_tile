@@ -4,7 +4,7 @@ class Vec2D {
         this.y = y;
     }
 
-    multiplicationBy(scalar) {
+    getVecMultiplicationBy(scalar) {
         return new Vec2D(this.x * scalar, this.y * scalar);
     }
 
@@ -24,9 +24,12 @@ class Vec2D {
         return clone;
     }
 
+    getInverseVec() {
+        return this.getVecMultiplicationBy(-1);
+    }
 
     //rotate by 90 degree anticlockwise
-    getNormalVector() {
+    getNormalVec() {
         return new Vec2D(this.y, - this.x);
     }
 

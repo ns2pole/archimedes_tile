@@ -1,7 +1,8 @@
 <script src="https://cdn.jsdelivr.net/npm/p5@0.10.2/lib/p5.js"></script>
 <script src="./Vertex.js"></script>
 <script src="./Vec2D.js"></script>
-<script src="./StraightLine.js"></script>
+<script src="./Line.js"></script>
+<script src="./Const.js"></script>
 <script>
 var WIDTH_SIZE = 1000
 var HEIGHT_SIZE = 600
@@ -27,12 +28,13 @@ function draw() {
     v1 = new Vertex(100, 100);
     v2 = new Vertex(200, 200);
     directionVector = new Vec2D(100, 150);
-    StraightLine1 = new StraightLine(v1, directionVector);
-    StraightLine1.draw();
+    line1 = new Line(v1, directionVector.getNormalizedVec());
+    line1.draw();
     circle(v2.x, v2.y, 10);
-    StraightLine2 = new StraightLine(v2, directionVector.getNormalVector());
-    StraightLine2.draw();
-    v3 = StraightLine1.getCrossVertexTo(StraightLine2);
+    line2 = new Line(v2, directionVector.getNormalizedVec());
+    line2.draw();
+    v3 = line1.getCrossVertexTo(line2);
+    v3.draw()
     displayCount++; //カウンタ+1
 }
 </script>

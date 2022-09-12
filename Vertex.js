@@ -11,7 +11,7 @@ class Vertex {
         return new Vertex(x3, y3);
     }
 
-    getDistanceTo(straightLine) {
+    getDistanceTo(line) {
         
     }
 

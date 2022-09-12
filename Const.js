@@ -1,0 +1,1 @@
+var INFINITY = 9999999;
