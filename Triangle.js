@@ -1,4 +1,4 @@
-class Triangle extends RegularPolygon {
+class Triangle extends Polygon {
     constructor(v1, v2, v3) {
         let vertexes = new Array();
         vertexes.push(v1);

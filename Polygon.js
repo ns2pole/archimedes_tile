@@ -1,4 +1,4 @@
-class RegularPolygon {
+class Polygon {
   constructor(vertexes) {
     Object.defineProperty(
       this,
@@ -23,7 +23,7 @@ class RegularPolygon {
     this.vertexes.forEach((vertex) => {
         refrectedVertexes.push(vertex.getRefrectedVertexFor(edge));
     });
-    return new RegularPolygon(refrectedVertexes);
+    return new Polygon(refrectedVertexes);
   }
 
   draw() {
@@ -32,6 +32,6 @@ class RegularPolygon {
     });
     this.vertexes.forEach((vertex) => {
       vertex.draw();
-  });
+    });
   }
 }

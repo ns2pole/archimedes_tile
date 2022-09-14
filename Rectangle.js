@@ -1,4 +1,4 @@
-class Rectangle extends RegularPolygon {
+class Rectangle extends Polygon {
     constructor(v1, v2, v3, v4) {
         let vertexes = new Array();
         vertexes.push(v1);

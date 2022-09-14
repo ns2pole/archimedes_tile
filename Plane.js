@@ -15,7 +15,6 @@ class Plane {
               value: vec2D.getMultiplicatedVecBy(SCALE)
             }
         );
-
         Object.defineProperty(
             this,
             'vertexOfOriginNext', {

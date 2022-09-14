@@ -13,6 +13,12 @@ class Edge {
               value: v2
             }
         );
+        Object.defineProperty(
+            this,
+            'contactingPolygons', {
+              value: new Array()
+            }
+        );
     }
 
     getVec2D() {
