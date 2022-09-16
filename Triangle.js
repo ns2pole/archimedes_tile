@@ -1,24 +1,43 @@
 class Triangle extends Polygon {
-    constructor(v1, v2, v3) {
-        let vertexes = new Array();
-        vertexes.push(v1);
-        vertexes.push(v2);
-        vertexes.push(v3);
-        super(vertexes);
+    constructor(v1, v2, v3, e1, e2, e3) {
+        let vertexes = new Set();
+        vertexes.add(v1);
+        vertexes.add(v2);
+        vertexes.add(v3);
+        let edges = new Set();
+        edges.add(e1);
+        edges.add(e2);
+        edges.add(e3);
+        super(vertexes, edges);
     }
 
-    // return Triangle object
-    getRefrectedTriangeFor(edge) {
-        const refrectedPolygon = this.getRefrectedPolygonFor(edge);
-        return new Triangle(refrectedPolygon.vertexes[0], refrectedPolygon.vertexes[1], refrectedPolygon.vertexes[2]);
+
+    static getVertexOfRightSideTriangleFor(edge) {
+        const vec2D = Vec2D.getVec2DBy(edge.v1, edge.v2);
+        const rotatedVec = vec2D.getVecRoteatedBy(Math.PI / 3);
+        return  edge.v1.getVertexActionedBy(rotatedVec);
     }
 
-    // return Rectangle object on anticlockwise side for edge
-    static getTriangleFor(edge) {
-        const vec2D = edge.getVec2D();
-        const rotetedVec = vec2D.getVecRoteatedBy(Math.PI / 3);
-        const thirdVertex = edge.v1.getVertexActionedBy(rotetedVec);
-        return new Triangle(edge.v1, edge.v2, thirdVertex);
+    getCenter() {
+        const arr = Array.from(this.vertexes);
+        const x = (arr[0].x + arr[1].x + arr[2].x) / 3;
+        const y = (arr[0].y + arr[1].y + arr[2].y) / 3;
+        return new Vertex(x, y);
     }
-    
+
+    static getVertexOfLeftSideTriangleFor(edge) {
+        const vec2D = Vec2D.getVec2DBy(edge.v1, edge.v2);
+        const rotatedVec = vec2D.getVecRoteatedBy(- Math.PI / 3);
+        return edge.v1.getVertexActionedBy(rotatedVec);
+    }
+
+    static getVertexesOfBothSidesTrianglesFor(edge) {
+        const set = new Set();
+        set.add(Triangle.getVertexOfRightSideTriangleFor(edge));
+        set.add(Triangle.getVertexOfLeftSideTriangleFor(edge));
+        return set;
+    }
+
+   
+
 }

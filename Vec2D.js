@@ -37,8 +37,17 @@ class Vec2D {
     }
 
     //rotate by 90 degree anticlockwise
-    getNormalVec() {
+    getAntiClockwiseNormalVec() {
         return new Vec2D(this.y, - this.x);
+    }
+
+    getInnnerProductWith(vec2D) {
+        return this.x * vec2D.x + this.y * vec2D.y;
+    }
+
+    //rotate by 90 degree clockwise
+    getClockwiseNormalVec() {
+        return new Vec2D(-this.y, this.x);
     }
 
     getAreaGeneretedBy(vec2D) {
@@ -55,4 +64,9 @@ class Vec2D {
         const sin = Math.sin(radian);
         return new Vec2D(this.x * cos - this.y * sin, this.x * sin + this.y * cos);
     }
+
+    static getVec2DBy(fromV, toV) {
+        return new Vec2D(toV.x - fromV.x, toV.y - fromV.y);
+    }
+
 }
