@@ -39,7 +39,6 @@ class Vertex {
         const edges = this.getConntectedAllEdgesBy(plane);
         edges.forEach((edge) => {
             if(!edge.isSandwichedByPolygon(plane)) {
-                console.table(edge);
                 result.add(edge);
             }
         });
@@ -83,19 +82,36 @@ class Vertex {
     getFourVertexesBy(plane) {
         if(this.getDegreeBy(plane) == 3 && 
             this.getAroundPolygonNumBy(plane) == 2
-        )
-         {
-            const result = new Set();
+        ){
+            const resultVertexes = new Set();
+            const resultEdges = new Set();
+            const resultRectangles = new Set();
             const edgesNotSandwiched = this.getConnectedAllEdgesNotSandwichedBy(plane);
             edgesNotSandwiched.forEach((edge) => {
                 const vertexes = edge.getVertexes();
+                const tmpV = new Set();
+                const tmpE = new Set([edge]);
                 vertexes.forEach((vertex) => {
-                    const tmp = vertex.getOhterVertexOf(edge);
                     const adjacentingPolygon = edge.getAdjacentingAllPolygonsBy(plane)[Symbol.iterator]().next().value;
-                    result.add(Vertex.getRectangleVertexOppositeSideOf(tmp, edge, adjacentingPolygon));
+                    const newVertex = Vertex.getRectangleVertexOppositeSideOf(vertex, edge, adjacentingPolygon);
+                    resultVertexes.add(newVertex);
+                    tmpV.add(newVertex);
+                    tmpE.add(new Edge(vertex, newVertex));
+                    resultEdges.add(new Edge(vertex, newVertex));
                 });
+                resultEdges.add(new Edge(Array.from(tmpV)[0], Array.from(tmpV)[1]))
+                resultRectangles.add(new Rectangle(
+                    edge.v1,
+                    Array.from(tmpV)[0],
+                    Array.from(tmpV)[1],
+                    edge.v2,
+                    edge,
+                    Array.from(tmpE)[1],
+                    new Edge(Array.from(tmpV)[0], Array.from(tmpV)[1]),
+                    Array.from(tmpE)[2],
+                ));
             });
-            return result;
+            return new Object({"resultVertexes": resultVertexes, "resultEdges": resultEdges, "resultRectangles":resultRectangles});
         }
     }
 
@@ -121,6 +137,7 @@ class Vertex {
     }
 
     draw() {
+        fill(color("#00FF00"));
         circle(this.x, this.y, 10);
     }
 }

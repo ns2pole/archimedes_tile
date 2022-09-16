@@ -38,6 +38,12 @@ class Triangle extends Polygon {
         return set;
     }
 
+    draw() {
+        const arr = Array.from(this.vertexes);
+        fill("yellow");
+        triangle(arr[0].x, arr[0].y, arr[1].x, arr[1].y, arr[2].x, arr[2].y);
+    }
+
    
 
 }

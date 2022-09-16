@@ -29,15 +29,24 @@ class Plane {
         const secondTriangle = new Triangle(initVertex, secondVertex, fourthVertex, initEdge, fourthEdge, fifthEdge);
         this.triangles.add(initTriangle);
         this.triangles.add(secondTriangle);
-        this.vertexs.union(initVertex.getFourVertexesBy(this));
+        const result = initVertex.getFourVertexesBy(this);
+        this.vertexs.union(result.resultVertexes);
+        this.edges.union(result.resultEdges);
+        this.rectangles.union(result.resultRectangles);
+        console.table(this);
     }
 
 
     draw() {
+        this.triangles.forEach((triangle) => {
+            triangle.draw();
+        });
+        this.rectangles.forEach((rectangle) => {
+            rectangle.draw();
+        });
         this.edges.forEach((edge) => {
             edge.draw();
         });
-        console.log(this.vertexs);
         this.vertexs.forEach((vertex) => {
             vertex.draw();
         });

@@ -52,7 +52,6 @@ class Edge {
     getAdjacentingAllPolygonsBy(plane) {
         const polygons = new Set();
         plane.triangles.forEach((triangle) => {
-            console.table(triangle);
             if(triangle.hasE(this)) {
                 polygons.add(triangle);
             }

@@ -29,12 +29,12 @@ class Polygon {
     return iterator.next().value;
   }
 
-  draw() {
-    this.vertexes.forEach((vertex) => {
-      vertex.draw();
-    });
-    this.edges.forEach((edge) => {
-        edge.draw();
-    });
-  }
+  // draw() {
+  //   this.vertexes.forEach((vertex) => {
+  //     vertex.draw();
+  //   });
+  //   this.edges.forEach((edge) => {
+  //     edge.draw();
+  //   });
+  // }
 }

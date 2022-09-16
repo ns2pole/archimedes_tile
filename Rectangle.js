@@ -18,4 +18,10 @@ class Rectangle extends Polygon {
         const refrectedPolygon = this.getRefrectedPolygonFor(edge);
         return new Rectangle(refrectedPolygon.vertexes[0], refrectedPolygon.vertexes[1], refrectedPolygon.vertexes[2], refrectedPolygon.vertexes[3]);
     }
+
+    draw() {
+        const arr = Array.from(this.vertexes);
+        fill(color(255, 0, 255));
+        quad(arr[0].x, arr[0].y, arr[1].x, arr[1].y, arr[2].x, arr[2].y, arr[3].x, arr[3].y);
+    }
 }
