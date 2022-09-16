@@ -12,13 +12,16 @@
 <script>
     // initially, call once
     'use srict';
+    let plane = new Plane();
+    plane.init();
     function setup(){      
         createCanvas(WIDTH_SIZE, HEIGHT_SIZE); //表示する領域を確保 
         background(255,230,210); //背景描画
-        let plane = new Plane();
-        plane.init();
-        plane.draw();
         frameRate(10);
     }
-    
+
+    function draw() {
+        plane.evo(Array.from(plane.vertexs)[0] );
+        plane.draw();
+    }
 </script>
