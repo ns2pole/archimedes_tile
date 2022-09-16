@@ -30,6 +30,16 @@ Set.prototype.difference = function(setB) {
     return this;
 }
 
+
+Set.prototype.have = function(elem1) {
+    for (var elem of this) {
+        if(elem1 == elem) {
+            return true;
+        } 
+    };
+    return false;
+}
+
 Set.prototype.isSubset = function(superset) {
     for (var elem of this) {
         if (!superset.has(elem)) {

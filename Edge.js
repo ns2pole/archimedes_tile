@@ -73,6 +73,7 @@ class Edge {
     }
 
     isSandwichedByPolygon(plane) {
+        console.log(this.getPolygonNumAdjacentingTo(plane))
         if(this.getPolygonNumAdjacentingTo(plane) == 1) {
             return false;
         } else {

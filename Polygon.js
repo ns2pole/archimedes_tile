@@ -15,11 +15,11 @@ class Polygon {
   }
 
   hasV(vertex) {
-    return this.vertexes.has(vertex);
+    return this.vertexes.have(vertex);
   }
 
   hasE(edge) {
-    return this.edges.has(edge);
+    return this.edges.have(edge);
   }
 
   static getElementCyclic(set, iterator) {

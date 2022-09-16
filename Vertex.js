@@ -37,11 +37,14 @@ class Vertex {
     getConnectedAllEdgesNotSandwichedBy(plane) {
         const result = new Set();
         const edges = this.getConntectedAllEdgesBy(plane);
+        console.log(edges)
         edges.forEach((edge) => {
+            console.log(111)
             if(!edge.isSandwichedByPolygon(plane)) {
                 result.add(edge);
             }
         });
+        console.log(result)
         return result;
     }
 
@@ -119,7 +122,7 @@ class Vertex {
         }
     }
 
-    static getVertexesOtherThanMySelfFrom(vertexes) {
+    getVertexesOtherThanMySelfFrom(vertexes) {
         const vertexesOtherThanMySelf = new Set();
         vertexes.forEach((vertex) => {
             if(vertex !== this) {

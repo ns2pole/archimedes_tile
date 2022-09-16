@@ -54,38 +54,66 @@ class Plane {
                 Array.from(tmpV)[0],
                 Array.from(tmpV)[1],
                 edge.v2,
-                edge,
+                new Edge(edge.v2, edge.v1),
                 Array.from(tmpE)[1],
                 new Edge(Array.from(tmpV)[0], Array.from(tmpV)[1]),
-                Array.from(tmpE)[2],
+                new Edge(Array.from(tmpE)[2].v2, Array.from(tmpE)[2].v1)
             ));
         });
-        return new Object({"resultVertexes": resultVertexes, "resultEdges": resultEdges, "resultRectangles":resultRectangles});
+        return new Object({"newVertexes": resultVertexes, "newEdges": resultEdges, "newTriangles": new Set(), "newRectangles":resultRectangles});
     }
 
     getNew1Edges1TrianglesAdjacentingTo(vertex) {
-        
+        const edgesNotSandwiched = vertex.getConnectedAllEdgesNotSandwichedBy(this);
+        console.table(edgesNotSandwiched);
+        const vertexes = vertex.getVertexesOtherThanMySelfFrom(Edge.getAllVertexesOf(edgesNotSandwiched));
+        const newEdges = new Set();
+        const newEdge = new Edge(Array.from(vertexes)[0], Array.from(vertexes)[1]);
+        newEdges.add(newEdge);
+        const newTriangles = new Set();
+        newTriangles.add(new Triangle(vertex, Array.from(vertexes)[0], Array.from(vertexes)[1], Array.from(edgesNotSandwiched)[0], newEdge, Array.from(edgesNotSandwiched)[1]));
+        return new Object({"newVertexes": new Set(), "newEdges": newEdges, "newTriangles": newTriangles, "newRectangles": new Set()});
     }
 
     getNew1Vertexes3Edges2TrianglesAdjacentingTo(vertex) {
+        
+        return new Object({"newVertexes": new Set(), "newEdges": new Set(), "newTriangles": new Set(), "newRectangles": new Set()});
+    }
+
+    isNextVertexForTiling(vertex) {
+        if((vertex.getDegreeBy(this) == 3 && vertex.getAroundPolygonNumBy(this) == 2)
+            || (vertex.getDegreeBy(this) == 5 && vertex.getAroundPolygonNumBy(this) == 4)
+            || (vertex.getDegreeBy(this) == 4 && vertex.getAroundRectangleNumBy(this) == 2)) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     getNewObjAround(vertex) {
         if(vertex.getDegreeBy(this) == 3 && vertex.getAroundPolygonNumBy(this) == 2) {
+            console.log("3,2")
             return this.getNew4Vertexes6Edges2RectanglesAdjacentingTo(vertex);
-        } else if(vertex.getDegreeBy(this) == 5 && vertex.getAroundPolygonNumBy(this) == 4) {
-            return this.getNew1Edges1TrianglesAdjacentingTo(vertex);
-        } else if(vertex.getDegreeBy(this) == 4 && vertex.getAroundRectangleNumBy(this) == 2) {
-            return this.getNew1Vertexes3Edges2TrianglesAdjacentingTo(vertex);
         }
+        if(vertex.getDegreeBy(this) == 5 && vertex.getAroundPolygonNumBy(this) == 4) {
+            console.log("5,4")
+            return this.getNew1Edges1TrianglesAdjacentingTo(vertex);
+        }
+        if(vertex.getDegreeBy(this) == 4 && vertex.getAroundRectangleNumBy(this) == 2) {
+            console.log("4,2")
+            return this.getNew1Vertexes3Edges2TrianglesAdjacentingTo(vertex);
+        } 
     }
 
     evolute() {
         const vertex = Array.from(this.vertexs)[Math.floor(Math.random() * this.vertexs.size)];
-        const result = this.getNewObjAround(vertex);
-        this.vertexs.union(result.resultVertexes);
-        this.edges.union(result.resultEdges);
-        this.rectangles.union(result.resultRectangles);
+        if(this.isNextVertexForTiling(vertex)) {
+            const result = this.getNewObjAround(vertex);
+            this.vertexs.union(result.newVertexes);
+            this.edges.union(result.newEdges);
+            this.triangles.union(result.newTriangles);
+            this.rectangles.union(result.newRectangles);
+        }
     }
 
     draw() {
