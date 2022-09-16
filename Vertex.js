@@ -65,8 +65,37 @@ class Vertex {
         return polygons;
     }
 
+    geAroundtAllTrianglesBy(plane) {
+        const triangles = new Set();
+        plane.triangles.forEach((triangle) => {
+            if(triangle.hasV(this)) {
+                triangles.add(triangle);
+            }
+        });
+        return triangles;
+    }
+
+
+    geAroundtAllRectanglesBy(plane) {
+        const rectangles = new Set();
+        plane.rectangles.forEach((rectangle) => {
+            if(rectangle.hasV(this)) {
+                rectangles.add(triangle);
+            }
+        });
+        return rectangles;
+    }
+
     getAroundPolygonNumBy(plane) {
         return this.geAroundtAllPolygonsBy(plane).size;
+    }
+
+    getAroundTriangleNumBy(plane) {
+        return this.geAroundtAllTrianglesBy(plane).size;
+    }
+
+    getAroundRectangleNumBy(plane) {
+        return this.geAroundtAllRectanglesBy(plane).size;
     }
 
     getOhterVertexOf(edge) {

@@ -31,7 +31,7 @@ class Plane {
         this.triangles.add(secondTriangle);
     }
 
-    getObjBy(vertex) {
+    getNew4Vertexes6Edges2RectanglesAdjacentingTo(vertex) {
         const resultVertexes = new Set();
         const resultEdges = new Set();
         const resultRectangles = new Set();
@@ -63,19 +63,26 @@ class Plane {
         return new Object({"resultVertexes": resultVertexes, "resultEdges": resultEdges, "resultRectangles":resultRectangles});
     }
 
-    pasteTileAround(vertex) {
+    getNew1Edges1TrianglesAdjacentingTo(vertex) {
+        
+    }
+
+    getNew1Vertexes3Edges2TrianglesAdjacentingTo(vertex) {
+    }
+
+    getNewObjAround(vertex) {
         if(vertex.getDegreeBy(this) == 3 && vertex.getAroundPolygonNumBy(this) == 2) {
-            return this.getObjBy(vertex);
+            return this.getNew4Vertexes6Edges2RectanglesAdjacentingTo(vertex);
         } else if(vertex.getDegreeBy(this) == 5 && vertex.getAroundPolygonNumBy(this) == 4) {
-
-        } else if(vertex.getDegreeBy(this) == 4 && vertex.getAroundPolygonNumBy(this) == 3) {
-
+            return this.getNew1Edges1TrianglesAdjacentingTo(vertex);
+        } else if(vertex.getDegreeBy(this) == 4 && vertex.getAroundRectangleNumBy(this) == 2) {
+            return this.getNew1Vertexes3Edges2TrianglesAdjacentingTo(vertex);
         }
     }
 
-    evo(vertex) {
-        const result = this.pasteTileAround(vertex);
-        console.log(result);
+    evolute() {
+        const vertex = Array.from(this.vertexs)[Math.floor(Math.random() * this.vertexs.size)];
+        const result = this.getNewObjAround(vertex);
         this.vertexs.union(result.resultVertexes);
         this.edges.union(result.resultEdges);
         this.rectangles.union(result.resultRectangles);
