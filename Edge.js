@@ -37,6 +37,18 @@ class Edge {
         return Math.sqrt(Math.pow(this.v2.x - this.v1.x, 2) + Math.pow(this.v2.y - this.v1.y, 2));
     }
 
+
+
+    getAllAdjacentingTrianglesBy(plane) {
+        const triangles = new Set();
+        plane.triangles.forEach((triangle) => {
+            if(triangle.hasE(this)) {
+                triangles.add(triangle);
+            }
+        });
+        return triangles;
+    }
+
     getAdjacentingAllPolygonsBy(plane) {
         const polygons = new Set();
         plane.triangles.forEach((triangle) => {

@@ -1,16 +1,10 @@
 class Rectangle extends Polygon {
-    constructor(v1, v2, v3, v4, e1, e2, e3, e4) {
-        let vertexes = new Set();
-        vertexes.add(v1);
-        vertexes.add(v2);
-        vertexes.add(v3);
-        vertexes.add(v4);
-        let edges = new Set();
-        edges.add(e1);
-        edges.add(e2);
-        edges.add(e3);
-        edges.add(e4);
-        super(vertexes, edges);
+    constructor(v1, v2, v3, v4) {
+        const e1 = new Edge(v1, v2);
+        const e2 = new Edge(v2, v3);
+        const e3 = new Edge(v3, v4);
+        const e4 = new Edge(v4, v1);
+        super(new Set([v1, v2, v3, v4]), new Set([e1, e2, e3, e4]));
     }
 
     draw() {

@@ -35,35 +35,23 @@ class Plane {
     }
 
     getNew4Vertexes6Edges2RectanglesAdjacentingTo(vertex) {
-        const resultVertexes = new Set();
-        const resultEdges = new Set();
-        const resultRectangles = new Set();
-        const edgesNotSandwiched = vertex.getAllAdjacentEdgesNotSandwichedFrom(this);
-        edgesNotSandwiched.forEach((edge) => {
-            const vertexes = edge.getVertexes();
-            const tmpV = new Set();
-            const tmpE = new Set([edge]);
-            vertexes.forEach((vertex) => {
-                const adjacentingPolygon = edge.getAdjacentingAllPolygonsBy(this)[Symbol.iterator]().next().value;
-                const newVertex = Vertex.getRectangleVertexOppositeSideOf(vertex, edge, adjacentingPolygon);
-                resultVertexes.add(newVertex);
-                tmpV.add(newVertex);
-                tmpE.add(new Edge(vertex, newVertex));
-                resultEdges.add(new Edge(vertex, newVertex));
-            });
-            resultEdges.add(new Edge(Array.from(tmpV)[0], Array.from(tmpV)[1]))
-            resultRectangles.add(new Rectangle(
-                edge.v1,
-                Array.from(tmpV)[0],
-                Array.from(tmpV)[1],
-                edge.v2,
-                edge,
-                Array.from(tmpE)[1],
-                new Edge(Array.from(tmpV)[0], Array.from(tmpV)[1]),
-                Array.from(tmpE)[2],
-            ));
-        });
-        return new Object({"newVertexes": resultVertexes, "newEdges": resultEdges, "newTriangles": new Set(), "newRectangles":resultRectangles});
+        const arrOfEdgesNotSandwiched = Array.from(vertex.getAllAdjacentEdgesNotSandwichedFrom(this));
+        const newVertexes = new Set();
+        const newEdges = new Set();
+        const newRectangles = new Set();
+        for(let edge of arrOfEdgesNotSandwiched) {
+            const triangle = Array.from(edge.getAllAdjacentingTrianglesBy(this))[0];
+            const otherVertex = vertex.getOhterVertexOf(edge);
+            const v1 = Vertex.getRectangleVertexOppositeSideOf(vertex, edge, triangle);
+            const v2 = Vertex.getRectangleVertexOppositeSideOf(otherVertex, edge, triangle);
+            newVertexes.add(v1);
+            newVertexes.add(v2);
+            newEdges.add(new Edge(vertex, v1));
+            newEdges.add(new Edge(v1, v2));
+            newEdges.add(new Edge(otherVertex, v2));
+            newRectangles.add(new Rectangle(vertex, v1, v2, otherVertex));
+        }
+        return new Object({"newVertexes": newVertexes, "newEdges": newEdges, "newTriangles": new Set(), "newRectangles": newRectangles});
     }
 
     getNew1Edges1TrianglesAdjacentingTo(vertex) {
@@ -100,10 +88,6 @@ class Plane {
             Array.from(otherVertexes)[0],
             newVertex,
             Array.from(otherVertexes)[1],
-            Array.from(edgesNotSandwiched)[0],
-            newEdge1,
-            newEdge2,
-            Array.from(edgesNotSandwiched)[1],
         );
         return new Object({"newVertexes": new Set([newVertex]), "newEdges": new Set([newEdge1, newEdge2]), "newTriangles": new Set(), "newRectangles": new Set([newRectangle])});
     }
