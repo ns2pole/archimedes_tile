@@ -1,9 +1,9 @@
 var INFINITY = 9999999;
-var WIDTH_SIZE = 1000
-var HEIGHT_SIZE = 600
-var ORIGIN_X = 300
-var ORIGIN_Y = 300
-var SCALE = 50
+var WIDTH_SIZE = 1500
+var HEIGHT_SIZE = 2500
+var ORIGIN_X = WIDTH_SIZE / 2
+var ORIGIN_Y = HEIGHT_SIZE / 2
+var SCALE = 100
 var c1 = Math.random() * 255;
 var c2 = Math.random() * 255;
 var c3 = Math.random() * 255;
