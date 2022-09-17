@@ -78,35 +78,48 @@ class Plane {
         const newEdges = new Set();
         const newTriangles = new Set();
         const edgesNotSandwiched = vertex.getConnectedAllEdgesNotSandwichedBy(this);
-        //newVertexは1点集合
-        const otherVertexOfEdgesNotSand = vertex.getVertexesOtherThanMySelfFrom(Edge.getAllVertexesOf(edgesNotSandwiched));
-        const middleVertex = Vertex.getMiddleVertexBetween(Array.from(otherVertexOfEdgesNotSand)[0], Array.from(otherVertexOfEdgesNotSand)[1]);
-        const tmp = middleVertex.getVertexActionedBy(Vec2D.getVec2DBy(vertex, middleVertex));
-        const newVertex = new Set([tmp]);
-        Edge.getAllVertexesOf(edgesNotSandwiched).forEach((vertex) => {
-            newEdges.add(new Edge(vertex, Array.from(newVertex)[0]));
-        });
+        const threeVertexes = Edge.getAllVertexesOf(edgesNotSandwiched);
+        const otherVertexes = vertex.getVertexesOtherThanMySelfFrom(threeVertexes);
+        const newVertex = Vertex.getTheOtherVertexOfRhombusFrom(vertex, Array.from(otherVertexes)[0], Array.from(otherVertexes)[1]);
+        newEdges.add(new Edge(newVertex, vertex));
+        newEdges.add(new Edge(newVertex, Array.from(otherVertexes)[0]));
+        newEdges.add(new Edge(newVertex, Array.from(otherVertexes)[1]));
         edgesNotSandwiched.forEach((edge) => {
             const vertexes = edge.getVertexes();
             newTriangles.add(new Triangle(
                 Array.from(vertexes)[0],
                 Array.from(vertexes)[1],
-                Array.from(newVertex)[0],
+                newVertex,
                 edge,
-                new Edge(Array.from(vertexes)[0], Array.from(newVertex)[0]),
-                new Edge(Array.from(vertexes)[1], Array.from(newVertex)[0]),
+                new Edge(Array.from(vertexes)[0], newVertex),
+                new Edge(Array.from(vertexes)[1], newVertex),
             ));
         });
-        console.log(newEdges)
-        return new Object({"newVertexes": newVertex, "newEdges": newEdges, "newTriangles": newTriangles, "newRectangles": new Set()});
+        return new Object({"newVertexes": new Set([newVertex]), "newEdges": newEdges, "newTriangles": newTriangles, "newRectangles": new Set()});
     }
 
     getNew1Vertexes2Edges1RectangleAdjacentingTo(vertex) {
-        return new Object({"newVertexes": new Set(), "newEdges": new Set(), "newTriangles": new Set(), "newRectangles": new Set()});
+        const edgesNotSandwiched = vertex.getConnectedAllEdgesNotSandwichedBy(this);
+        const threeVertexes = Edge.getAllVertexesOf(edgesNotSandwiched);
+        const otherVertexes = vertex.getVertexesOtherThanMySelfFrom(threeVertexes);
+        //newVertexは1点集合
+        const newVertex = Vertex.getTheOtherVertexOfRhombusFrom(vertex, Array.from(otherVertexes)[0], Array.from(otherVertexes)[1]);
+        const newEdge1 = new Edge(newVertex, Array.from(otherVertexes)[0]);
+        const newEdge2 = new Edge(newVertex, Array.from(otherVertexes)[1]);
+        const newRectangle = new Rectangle(
+            vertex,
+            Array.from(otherVertexes)[0],
+            newVertex,
+            Array.from(otherVertexes)[1],
+            Array.from(edgesNotSandwiched)[0],
+            newEdge1,
+            newEdge2,
+            Array.from(edgesNotSandwiched)[1],
+        );
+        return new Object({"newVertexes": new Set([newVertex]), "newEdges": new Set([newEdge1, newEdge2]), "newTriangles": new Set(), "newRectangles": new Set([newRectangle])});
     }
 
     isNextVertexForTiling(vertex) {
-        console.table((this))
         console.log("deg" + vertex.getDegreeBy(this))
         console.log("ar" + vertex.getAroundTriangleNumBy(this))
         if((vertex.getDegreeBy(this) == 3 && vertex.getAroundTriangleNumBy(this) == 2)
@@ -138,13 +151,17 @@ class Plane {
     }
 
     evolute() {
-        const vertex = Array.from(this.vertexs)[Math.floor(Math.random() * this.vertexs.size)];
-        if(this.isNextVertexForTiling(vertex)) {
-            const result = this.getNewObjAround(vertex);
-            this.vertexs.union(result.newVertexes);
-            this.edges.union(result.newEdges);
-            this.triangles.union(result.newTriangles);
-            this.rectangles.union(result.newRectangles);
+        const vertexArr = Array.from(this.vertexs);
+        for(let i = 0; i < vertexArr.length; i++) {
+            if(new Vertex(ORIGIN_X, ORIGIN_Y).getDistanceBetween(vertexArr[i]) < 100 * SCALE
+                && this.isNextVertexForTiling(vertexArr[i])) {
+                const result = this.getNewObjAround(vertexArr[i]);
+                this.vertexs.union(result.newVertexes);
+                this.edges.union(result.newEdges);
+                this.triangles.union(result.newTriangles);
+                this.rectangles.union(result.newRectangles);
+                break;
+            }
         }
     }
 

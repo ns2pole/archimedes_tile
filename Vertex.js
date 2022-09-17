@@ -133,6 +133,11 @@ class Vertex {
         return vertexesOtherThanMySelf;
     }
 
+    static getTheOtherVertexOfRhombusFrom(middleVertex, vertex1, vertex2) {
+        const mid = Vertex.getMiddleVertexBetween(vertex1, vertex2);
+        return middleVertex.getVertexActionedBy(Vec2D.getVec2DBy(middleVertex, mid).getMultiplicatedVecBy(2));
+    }
+
     draw() {
         fill(color("#00FF00"));
         circle(this.x, this.y, 5);
