@@ -65,13 +65,14 @@ class Plane {
     getNew1Vertexes3Edges2TrianglesAdjacentingTo(vertex) {
         const edgesNotSandwiched = vertex.getAllAdjacentEdgesNotSandwichedFrom(this);
         const threeVertexes = Edge.getAllVertexesOf(edgesNotSandwiched);
-        const otherVertexes = vertex.getVertexesOtherThanMySelfFrom(threeVertexes);
-        const newVertex = Vertex.getTheOtherVertexOfRhombusFrom(vertex, Array.from(otherVertexes)[0], Array.from(otherVertexes)[1]);
+        const otherVertexesArr = Array.from(vertex.getVertexesOtherThanMySelfFrom(threeVertexes));
+        const newVertex = Vertex.getTheOtherVertexOfRhombusFrom(vertex, otherVertexesArr[0], otherVertexesArr[1]);
         const newEdge1 = new Edge(newVertex, vertex);
-        const newEdge2 = new Edge(newVertex, Array.from(otherVertexes)[0]);
-        const newEdge3 = new Edge(newVertex, Array.from(otherVertexes)[1]);
-        const newTriangle1 = new Triangle(newVertex, Array.from(edgesNotSandwiched)[0].v1, Array.from(edgesNotSandwiched)[0].v2);
-        const newTriangle2 = new Triangle(newVertex, Array.from(edgesNotSandwiched)[1].v1, Array.from(edgesNotSandwiched)[1].v2);
+        const newEdge2 = new Edge(newVertex, otherVertexesArr[0]);
+        const newEdge3 = new Edge(newVertex, otherVertexesArr[1]);
+        const edgeArr = Array.from(edgesNotSandwiched)
+        const newTriangle1 = new Triangle(newVertex, edgeArr[0].v1, edgeArr[0].v2);
+        const newTriangle2 = new Triangle(newVertex, edgeArr[1].v1, edgeArr[1].v2);
         return new Object({"newVertexes": new Set([newVertex]), "newEdges": new Set([newEdge1, newEdge2, newEdge3]), "newTriangles": new Set([newTriangle1, newTriangle2]), "newRectangles": new Set()});
     }
 
@@ -79,16 +80,10 @@ class Plane {
         const edgesNotSandwiched = vertex.getAllAdjacentEdgesNotSandwichedFrom(this);
         const threeVertexes = Edge.getAllVertexesOf(edgesNotSandwiched);
         const otherVertexes = vertex.getVertexesOtherThanMySelfFrom(threeVertexes);
-        //newVertexは1点集合
         const newVertex = Vertex.getTheOtherVertexOfRhombusFrom(vertex, Array.from(otherVertexes)[0], Array.from(otherVertexes)[1]);
         const newEdge1 = new Edge(newVertex, Array.from(otherVertexes)[0]);
         const newEdge2 = new Edge(newVertex, Array.from(otherVertexes)[1]);
-        const newRectangle = new Rectangle(
-            vertex,
-            Array.from(otherVertexes)[0],
-            newVertex,
-            Array.from(otherVertexes)[1],
-        );
+        const newRectangle = new Rectangle(vertex, Array.from(otherVertexes)[0], newVertex, Array.from(otherVertexes)[1]);
         return new Object({"newVertexes": new Set([newVertex]), "newEdges": new Set([newEdge1, newEdge2]), "newTriangles": new Set(), "newRectangles": new Set([newRectangle])});
     }
 

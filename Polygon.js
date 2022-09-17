@@ -27,14 +27,12 @@ class Polygon {
     return false;
   }
 
-
   getCenter() {
     const arr = Array.from(this.vertexes);
     const gx = arr.reduce((acc, cur) => acc + cur.x, 0) / arr.length;
     const gy = arr.reduce((acc, cur) => acc + cur.y, 0) / arr.length;
-
     return new Vertex(gx, gy);
-}
+  }
 
   static getElementCyclic(set, iterator) {
     if(iterator.next().done) {
@@ -43,12 +41,4 @@ class Polygon {
     return iterator.next().value;
   }
 
-  // draw() {
-  //   this.vertexes.forEach((vertex) => {
-  //     vertex.draw();
-  //   });
-  //   this.edges.forEach((edge) => {
-  //     edge.draw();
-  //   });
-  // }
 }

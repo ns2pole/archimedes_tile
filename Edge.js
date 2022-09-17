@@ -1,4 +1,3 @@
-//pair of vertex class
 class Edge {
     constructor(v1, v2) {
         Object.defineProperty(
@@ -32,12 +31,6 @@ class Edge {
     has(vertex) {
         return this.v1 === vertex || this.v2 === vertex;
     }
-
-    getLength() {
-        return Math.sqrt(Math.pow(this.v2.x - this.v1.x, 2) + Math.pow(this.v2.y - this.v1.y, 2));
-    }
-
-
 
     getAllAdjacentingTrianglesBy(plane) {
         const triangles = new Set();
@@ -84,10 +77,7 @@ class Edge {
         const vec2D = Vec2D.getVec2DBy(this.v1, this.v2);
         const rotatedVec1 = vec2D.getVecRoteatedBy(Math.PI / 3);
         const rotatedVec2 = vec2D.getVecRoteatedBy(- Math.PI / 3);
-        const set = new Set();
-        set.add(this.v1.getVertexActionedBy(rotatedVec1));
-        set.add(this.v1.getVertexActionedBy(rotatedVec2));
-        return set;
+        return new Set([this.v1.getVertexActionedBy(rotatedVec1), this.v1.getVertexActionedBy(rotatedVec2)]);
     }
 
     equals(vertex) {
