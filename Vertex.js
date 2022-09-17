@@ -15,6 +15,10 @@ class Vertex {
         );
     }
 
+    static getMiddleVertexBetween(v1, v2) {
+        return new Vertex((v1.x + v2.x) / 2, (v1.y + v2.y) / 2);
+    }
+
     getVertexActionedBy(vec2D) {
         return new Vertex(this.x + vec2D.x, this.y + vec2D.y);
     }
@@ -37,14 +41,11 @@ class Vertex {
     getConnectedAllEdgesNotSandwichedBy(plane) {
         const result = new Set();
         const edges = this.getConntectedAllEdgesBy(plane);
-        console.log(edges)
         edges.forEach((edge) => {
-            console.log(111)
             if(!edge.isSandwichedByPolygon(plane)) {
                 result.add(edge);
             }
         });
-        console.log(result)
         return result;
     }
 
@@ -83,7 +84,7 @@ class Vertex {
         const rectangles = new Set();
         plane.rectangles.forEach((rectangle) => {
             if(rectangle.hasV(this)) {
-                rectangles.add(triangle);
+                rectangles.add(rectangle);
             }
         });
         return rectangles;
@@ -134,6 +135,6 @@ class Vertex {
 
     draw() {
         fill(color("#00FF00"));
-        circle(this.x, this.y, 10);
+        circle(this.x, this.y, 5);
     }
 }

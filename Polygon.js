@@ -19,8 +19,22 @@ class Polygon {
   }
 
   hasE(edge) {
-    return this.edges.have(edge);
+    for(let e of this.edges) {
+      if(e.equals(edge)) {
+        return true;
+      }
+    }
+    return false;
   }
+
+
+  getCenter() {
+    const arr = Array.from(this.vertexes);
+    const gx = arr.reduce((acc, cur) => acc + cur.x, 0) / arr.length;
+    const gy = arr.reduce((acc, cur) => acc + cur.y, 0) / arr.length;
+
+    return new Vertex(gx, gy);
+}
 
   static getElementCyclic(set, iterator) {
     if(iterator.next().done) {

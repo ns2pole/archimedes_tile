@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="./Vertex.js"></script>
+    <script src="./Edge.js"></script>
+    <script src="./Vec2D.js"></script>
+    <script src="./Line.js"></script>
+    <script src="./Polygon.js"></script>
+    <script src="./Const.js"></script>
+    <script src="./Triangle.js"></script>
+    <script src="./Rectangle.js"></script>
+    <script src="./Plane.js"></script>
+    <script src="./SuperSet.js"></script>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        let v1 = new Vertex(1, 2);
+        let v2 = new Vertex(3, 4);
+        let v3 = new Vertex(5, 6);
+        let e1 = new Edge(v1, v2);
+        let e2 = new Edge(v2, v3);
+        let e3 = new Edge(v3, v1);
+        let t1 = new Triangle(v1, v2, v3, e1, e2, e3);
+        let e4 = new Edge(v3, v1);
+    </script>
+</body>
+</html>

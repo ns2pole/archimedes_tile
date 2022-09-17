@@ -18,12 +18,6 @@ class Triangle extends Polygon {
         return  edge.v1.getVertexActionedBy(rotatedVec);
     }
 
-    getCenter() {
-        const arr = Array.from(this.vertexes);
-        const x = (arr[0].x + arr[1].x + arr[2].x) / 3;
-        const y = (arr[0].y + arr[1].y + arr[2].y) / 3;
-        return new Vertex(x, y);
-    }
 
     static getVertexOfLeftSideTriangleFor(edge) {
         const vec2D = Vec2D.getVec2DBy(edge.v1, edge.v2);

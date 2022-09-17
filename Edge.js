@@ -73,12 +73,16 @@ class Edge {
     }
 
     isSandwichedByPolygon(plane) {
-        console.log(this.getPolygonNumAdjacentingTo(plane))
         if(this.getPolygonNumAdjacentingTo(plane) == 1) {
             return false;
         } else {
             return true
         }
+    }
+
+    equals(vertex) {
+        return (this.v1 === vertex.v1 && this.v2 === vertex.v2) || (this.v1 === vertex.v2 && this.v2 === vertex.v1);
+        
     }
 
     draw() {
