@@ -69,12 +69,9 @@ class Plane {
     getNew1Edges1TrianglesAdjacentingTo(vertex) {
         const edgesNotSandwiched = vertex.getAllAdjacentEdgesNotSandwichedFrom(this);
         const vertexes = vertex.getVertexesOtherThanMySelfFrom(Edge.getAllVertexesOf(edgesNotSandwiched));
-        const newEdges = new Set();
         const newEdge = new Edge(Array.from(vertexes)[0], Array.from(vertexes)[1]);
-        newEdges.add(newEdge);
-        const newTriangles = new Set();
-        newTriangles.add(new Triangle(vertex, Array.from(vertexes)[0], Array.from(vertexes)[1], Array.from(edgesNotSandwiched)[0], newEdge, Array.from(edgesNotSandwiched)[1]));
-        return new Object({"newVertexes": new Set(), "newEdges": newEdges, "newTriangles": newTriangles, "newRectangles": new Set()});
+        const newTriangle = new Triangle(vertex, Array.from(vertexes)[0], Array.from(vertexes)[1], Array.from(edgesNotSandwiched)[0], newEdge, Array.from(edgesNotSandwiched)[1]);
+        return new Object({"newVertexes": new Set(), "newEdges": new Set([newEdge]), "newTriangles": new Set([newTriangle]), "newRectangles": new Set()});
     }
 
     getNew1Vertexes3Edges2TrianglesAdjacentingTo(vertex) {
@@ -112,8 +109,6 @@ class Plane {
     }
 
     isNextVertexForTiling(vertex) {
-        console.log("deg" + vertex.getDegreeBy(this))
-        console.log("ar" + vertex.getAroundTriangleNumBy(this))
         if((vertex.getDegreeBy(this) == 3 && vertex.getAroundTriangleNumBy(this) == 2)
             || (vertex.getDegreeBy(this) == 5 && vertex.getAroundPolygonNumBy(this) == 4)
             || (vertex.getDegreeBy(this) == 4 && vertex.getAroundRectangleNumBy(this) == 2)) {
