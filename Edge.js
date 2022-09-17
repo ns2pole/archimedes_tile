@@ -68,6 +68,16 @@ class Edge {
         }
     }
 
+    getVertexesOfBothSidesTriangles() {
+        const vec2D = Vec2D.getVec2DBy(this.v1, this.v2);
+        const rotatedVec1 = vec2D.getVecRoteatedBy(Math.PI / 3);
+        const rotatedVec2 = vec2D.getVecRoteatedBy(- Math.PI / 3);
+        const set = new Set();
+        set.add(this.v1.getVertexActionedBy(rotatedVec1));
+        set.add(this.v1.getVertexActionedBy(rotatedVec2));
+        return set;
+    }
+
     equals(vertex) {
         return (this.v1 === vertex.v1 && this.v2 === vertex.v2) || (this.v1 === vertex.v2 && this.v2 === vertex.v1);
     }

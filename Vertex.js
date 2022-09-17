@@ -27,8 +27,7 @@ class Vertex {
         return Math.sqrt(Math.pow(this.x - vertex.x, 2) + Math.pow(this.y - vertex.y, 2));
     }
 
-
-    getConntectedAllEdgesBy(plane) {
+    getAllAdjacentEdgesBy(plane) {
         const edges = new Set();
         plane.edges.forEach((edge) => {
             if(edge.has(this)) {
@@ -38,9 +37,9 @@ class Vertex {
         return edges;
     }
 
-    getConnectedAllEdgesNotSandwichedBy(plane) {
+    getAllAdjacentEdgesNotSandwichedFrom(plane) {
         const result = new Set();
-        const edges = this.getConntectedAllEdgesBy(plane);
+        const edges = this.getAllAdjacentEdgesBy(plane);
         edges.forEach((edge) => {
             if(!edge.isSandwichedByPolygon(plane)) {
                 result.add(edge);
@@ -50,7 +49,7 @@ class Vertex {
     }
 
     getDegreeBy(plane) {
-        return this.getConntectedAllEdgesBy(plane).size;
+        return this.getAllAdjacentEdgesBy(plane).size;
     }
 
     geAroundtAllPolygonsBy(plane) {

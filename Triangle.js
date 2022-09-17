@@ -12,25 +12,7 @@ class Triangle extends Polygon {
     }
 
 
-    static getVertexOfRightSideTriangleFor(edge) {
-        const vec2D = Vec2D.getVec2DBy(edge.v1, edge.v2);
-        const rotatedVec = vec2D.getVecRoteatedBy(Math.PI / 3);
-        return  edge.v1.getVertexActionedBy(rotatedVec);
-    }
-
-
-    static getVertexOfLeftSideTriangleFor(edge) {
-        const vec2D = Vec2D.getVec2DBy(edge.v1, edge.v2);
-        const rotatedVec = vec2D.getVecRoteatedBy(- Math.PI / 3);
-        return edge.v1.getVertexActionedBy(rotatedVec);
-    }
-
-    static getVertexesOfBothSidesTrianglesFor(edge) {
-        const set = new Set();
-        set.add(Triangle.getVertexOfRightSideTriangleFor(edge));
-        set.add(Triangle.getVertexOfLeftSideTriangleFor(edge));
-        return set;
-    }
+    
 
     draw() {
         const arr = Array.from(this.vertexes);

@@ -1,4 +1,3 @@
-// this class means direction vecter two dimension
 class Vec2D {
     constructor(x, y) {
         Object.defineProperty(
@@ -28,10 +27,6 @@ class Vec2D {
         return new Vec2D(this.x, this.y).getMultiplicatedVecBy(1 / norm);
     }
 
-    getAddedVecFor(vec2D) {
-        return new Vec2D(this.x + vec2D.x, this.y + vec2D.y);
-    }
-
     getInverseVec() {
         return this.getMultiplicatedVecBy(-1);
     }
@@ -48,10 +43,6 @@ class Vec2D {
     //rotate by 90 degree clockwise
     getClockwiseNormalVec() {
         return new Vec2D(-this.y, this.x);
-    }
-
-    getAreaGeneretedBy(vec2D) {
-        return (this.x * vec2D.y - this.y * vec2D.x);
     }
 
     static getRandomNormalizedVec() {

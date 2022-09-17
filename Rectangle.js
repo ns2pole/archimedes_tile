@@ -13,12 +13,6 @@ class Rectangle extends Polygon {
         super(vertexes, edges);
     }
 
-    // return Rectangle object
-    getRefrectedRectangleFor(edge) {
-        const refrectedPolygon = this.getRefrectedPolygonFor(edge);
-        return new Rectangle(refrectedPolygon.vertexes[0], refrectedPolygon.vertexes[1], refrectedPolygon.vertexes[2], refrectedPolygon.vertexes[3]);
-    }
-
     draw() {
         const arr = Array.from(this.vertexes);
         fill(color(255, 0, 255));

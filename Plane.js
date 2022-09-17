@@ -13,8 +13,9 @@ class Plane {
         this.vertexs.add(secondVertex);
         const initEdge = new Edge(initVertex, secondVertex);
         this.edges.add(initEdge);
-        const thirdVertex = Triangle.getVertexOfRightSideTriangleFor(initEdge);
-        const fourthVertex = Triangle.getVertexOfLeftSideTriangleFor(initEdge);
+        const bothSideVertexes = initEdge.getVertexesOfBothSidesTriangles();
+        const thirdVertex = Array.from(bothSideVertexes)[0];
+        const fourthVertex = Array.from(bothSideVertexes)[1];
         this.vertexs.add(thirdVertex);
         this.vertexs.add(fourthVertex);
         const secondEdge = new Edge(initVertex, thirdVertex);
@@ -35,7 +36,7 @@ class Plane {
         const resultVertexes = new Set();
         const resultEdges = new Set();
         const resultRectangles = new Set();
-        const edgesNotSandwiched = vertex.getConnectedAllEdgesNotSandwichedBy(this);
+        const edgesNotSandwiched = vertex.getAllAdjacentEdgesNotSandwichedFrom(this);
         edgesNotSandwiched.forEach((edge) => {
             const vertexes = edge.getVertexes();
             const tmpV = new Set();
@@ -64,7 +65,7 @@ class Plane {
     }
 
     getNew1Edges1TrianglesAdjacentingTo(vertex) {
-        const edgesNotSandwiched = vertex.getConnectedAllEdgesNotSandwichedBy(this);
+        const edgesNotSandwiched = vertex.getAllAdjacentEdgesNotSandwichedFrom(this);
         const vertexes = vertex.getVertexesOtherThanMySelfFrom(Edge.getAllVertexesOf(edgesNotSandwiched));
         const newEdges = new Set();
         const newEdge = new Edge(Array.from(vertexes)[0], Array.from(vertexes)[1]);
@@ -77,7 +78,7 @@ class Plane {
     getNew1Vertexes3Edges2TrianglesAdjacentingTo(vertex) {
         const newEdges = new Set();
         const newTriangles = new Set();
-        const edgesNotSandwiched = vertex.getConnectedAllEdgesNotSandwichedBy(this);
+        const edgesNotSandwiched = vertex.getAllAdjacentEdgesNotSandwichedFrom(this);
         const threeVertexes = Edge.getAllVertexesOf(edgesNotSandwiched);
         const otherVertexes = vertex.getVertexesOtherThanMySelfFrom(threeVertexes);
         const newVertex = Vertex.getTheOtherVertexOfRhombusFrom(vertex, Array.from(otherVertexes)[0], Array.from(otherVertexes)[1]);
@@ -99,7 +100,7 @@ class Plane {
     }
 
     getNew1Vertexes2Edges1RectangleAdjacentingTo(vertex) {
-        const edgesNotSandwiched = vertex.getConnectedAllEdgesNotSandwichedBy(this);
+        const edgesNotSandwiched = vertex.getAllAdjacentEdgesNotSandwichedFrom(this);
         const threeVertexes = Edge.getAllVertexesOf(edgesNotSandwiched);
         const otherVertexes = vertex.getVertexesOtherThanMySelfFrom(threeVertexes);
         //newVertexは1点集合
