@@ -49,7 +49,6 @@ class Vertex {
         return result;
     }
 
-
     getDegreeBy(plane) {
         return this.getConntectedAllEdgesBy(plane).size;
     }
