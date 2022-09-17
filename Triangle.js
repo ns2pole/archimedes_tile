@@ -11,15 +11,14 @@ class Triangle extends Polygon {
         super(vertexes, edges);
     }
 
-
-    
+    static getTriangleBy(v1, v2, v3) {
+        return new Triangle(v1, v2, v3, new Edge(v1, v2), new Edge(v2, v3), new Edge(v3, v1));
+    }
 
     draw() {
         const arr = Array.from(this.vertexes);
         fill("yellow");
         triangle(arr[0].x, arr[0].y, arr[1].x, arr[1].y, arr[2].x, arr[2].y);
     }
-
-   
 
 }

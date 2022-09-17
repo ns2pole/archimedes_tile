@@ -76,27 +76,16 @@ class Plane {
     }
 
     getNew1Vertexes3Edges2TrianglesAdjacentingTo(vertex) {
-        const newEdges = new Set();
-        const newTriangles = new Set();
         const edgesNotSandwiched = vertex.getAllAdjacentEdgesNotSandwichedFrom(this);
         const threeVertexes = Edge.getAllVertexesOf(edgesNotSandwiched);
         const otherVertexes = vertex.getVertexesOtherThanMySelfFrom(threeVertexes);
         const newVertex = Vertex.getTheOtherVertexOfRhombusFrom(vertex, Array.from(otherVertexes)[0], Array.from(otherVertexes)[1]);
-        newEdges.add(new Edge(newVertex, vertex));
-        newEdges.add(new Edge(newVertex, Array.from(otherVertexes)[0]));
-        newEdges.add(new Edge(newVertex, Array.from(otherVertexes)[1]));
-        edgesNotSandwiched.forEach((edge) => {
-            const vertexes = edge.getVertexes();
-            newTriangles.add(new Triangle(
-                Array.from(vertexes)[0],
-                Array.from(vertexes)[1],
-                newVertex,
-                edge,
-                new Edge(Array.from(vertexes)[0], newVertex),
-                new Edge(Array.from(vertexes)[1], newVertex),
-            ));
-        });
-        return new Object({"newVertexes": new Set([newVertex]), "newEdges": newEdges, "newTriangles": newTriangles, "newRectangles": new Set()});
+        const newEdge1 = new Edge(newVertex, vertex);
+        const newEdge2 = new Edge(newVertex, Array.from(otherVertexes)[0]);
+        const newEdge3 = new Edge(newVertex, Array.from(otherVertexes)[1]);
+        const newTriangle1 = Triangle.getTriangleBy(newVertex, Array.from(edgesNotSandwiched)[0].v1, Array.from(edgesNotSandwiched)[0].v2);
+        const newTriangle2 = Triangle.getTriangleBy(newVertex, Array.from(edgesNotSandwiched)[1].v1, Array.from(edgesNotSandwiched)[1].v2);
+        return new Object({"newVertexes": new Set([newVertex]), "newEdges": new Set([newEdge1, newEdge2, newEdge3]), "newTriangles": new Set([newTriangle1, newTriangle2]), "newRectangles": new Set()});
     }
 
     getNew1Vertexes2Edges1RectangleAdjacentingTo(vertex) {
@@ -167,14 +156,14 @@ class Plane {
     }
 
     draw() {
+        this.edges.forEach((edge) => {
+            edge.draw();
+        });
         this.triangles.forEach((triangle) => {
             triangle.draw();
         });
         this.rectangles.forEach((rectangle) => {
             rectangle.draw();
-        });
-        this.edges.forEach((edge) => {
-            edge.draw();
         });
         this.vertexs.forEach((vertex) => {
             vertex.draw();
