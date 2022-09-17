@@ -9,27 +9,29 @@ class Plane {
     init() {
         const initVertex = new Vertex(ORIGIN_X, ORIGIN_Y);
         const secondVertex = initVertex.getVertexActionedBy(Vec2D.getRandomNormalizedVec().getMultiplicatedVecBy(SCALE));
-        this.vertexs.add(initVertex);
-        this.vertexs.add(secondVertex);
         const initEdge = new Edge(initVertex, secondVertex);
-        this.edges.add(initEdge);
         const bothSideVertexes = initEdge.getVertexesOfBothSidesTriangles();
         const thirdVertex = Array.from(bothSideVertexes)[0];
         const fourthVertex = Array.from(bothSideVertexes)[1];
+        const secondEdge = new Edge(initVertex, thirdVertex);
+        const thirdEdge = new Edge(secondVertex, thirdVertex);
+        const fourthEdge = new Edge(initVertex, fourthVertex);
+        const fifthEdge = new Edge(secondVertex, fourthVertex);
+        const initTriangle = new Triangle(initVertex, secondVertex, thirdVertex);
+        const secondTriangle = new Triangle(initVertex, secondVertex, fourthVertex);
+
+        this.vertexs.add(initVertex);
+        this.vertexs.add(secondVertex);
         this.vertexs.add(thirdVertex);
         this.vertexs.add(fourthVertex);
-        const secondEdge = new Edge(initVertex, thirdVertex);
-        const thirdEdge = new Edge(initVertex, fourthVertex);
-        const fourthEdge = new Edge(secondVertex, thirdVertex);
-        const fifthEdge = new Edge(secondVertex, fourthVertex);
+        this.edges.add(initEdge);
         this.edges.add(secondEdge);
         this.edges.add(thirdEdge);
         this.edges.add(fourthEdge);
         this.edges.add(fifthEdge);
-        const initTriangle = new Triangle(initVertex, secondVertex, thirdVertex, initEdge, secondEdge, thirdEdge);
-        const secondTriangle = new Triangle(initVertex, secondVertex, fourthVertex, initEdge, fourthEdge, fifthEdge);
         this.triangles.add(initTriangle);
         this.triangles.add(secondTriangle);
+        
     }
 
     getNew4Vertexes6Edges2RectanglesAdjacentingTo(vertex) {
@@ -83,8 +85,8 @@ class Plane {
         const newEdge1 = new Edge(newVertex, vertex);
         const newEdge2 = new Edge(newVertex, Array.from(otherVertexes)[0]);
         const newEdge3 = new Edge(newVertex, Array.from(otherVertexes)[1]);
-        const newTriangle1 = Triangle.getTriangleBy(newVertex, Array.from(edgesNotSandwiched)[0].v1, Array.from(edgesNotSandwiched)[0].v2);
-        const newTriangle2 = Triangle.getTriangleBy(newVertex, Array.from(edgesNotSandwiched)[1].v1, Array.from(edgesNotSandwiched)[1].v2);
+        const newTriangle1 = new Triangle(newVertex, Array.from(edgesNotSandwiched)[0].v1, Array.from(edgesNotSandwiched)[0].v2);
+        const newTriangle2 = new Triangle(newVertex, Array.from(edgesNotSandwiched)[1].v1, Array.from(edgesNotSandwiched)[1].v2);
         return new Object({"newVertexes": new Set([newVertex]), "newEdges": new Set([newEdge1, newEdge2, newEdge3]), "newTriangles": new Set([newTriangle1, newTriangle2]), "newRectangles": new Set()});
     }
 

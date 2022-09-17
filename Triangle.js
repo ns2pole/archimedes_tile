@@ -1,18 +1,9 @@
 class Triangle extends Polygon {
-    constructor(v1, v2, v3, e1, e2, e3) {
-        let vertexes = new Set();
-        vertexes.add(v1);
-        vertexes.add(v2);
-        vertexes.add(v3);
-        let edges = new Set();
-        edges.add(e1);
-        edges.add(e2);
-        edges.add(e3);
-        super(vertexes, edges);
-    }
-
-    static getTriangleBy(v1, v2, v3) {
-        return new Triangle(v1, v2, v3, new Edge(v1, v2), new Edge(v2, v3), new Edge(v3, v1));
+    constructor(v1, v2, v3) {
+        const e1 = new Edge(v1, v2);
+        const e2 = new Edge(v2, v3);
+        const e3 = new Edge(v3, v1);
+        super(new Set([v1, v2, v3]), new Set([e1, e2, e3]));
     }
 
     draw() {
