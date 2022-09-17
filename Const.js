@@ -4,3 +4,6 @@ var HEIGHT_SIZE = 600
 var ORIGIN_X = 300
 var ORIGIN_Y = 300
 var SCALE = 50
+var c1 = Math.random() * 255;
+var c2 = Math.random() * 255;
+var c3 = Math.random() * 255;

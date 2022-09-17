@@ -17,8 +17,8 @@ class Plane {
         const thirdEdge = new Edge(secondVertex, thirdVertex);
         const fourthEdge = new Edge(initVertex, fourthVertex);
         const fifthEdge = new Edge(secondVertex, fourthVertex);
-        const initTriangle = new Triangle(initVertex, secondVertex, thirdVertex);
-        const secondTriangle = new Triangle(initVertex, secondVertex, fourthVertex);
+        const initTriangle = new Triangle(initVertex, secondVertex, thirdVertex, RGB.getRandom());
+        const secondTriangle = new Triangle(initVertex, secondVertex, fourthVertex, RGB.getRandom());
 
         this.vertexs.add(initVertex);
         this.vertexs.add(secondVertex);
@@ -49,7 +49,7 @@ class Plane {
             newEdges.add(new Edge(vertex, v1));
             newEdges.add(new Edge(v1, v2));
             newEdges.add(new Edge(otherVertex, v2));
-            newRectangles.add(new Rectangle(vertex, v1, v2, otherVertex));
+            newRectangles.add(new Rectangle(vertex, v1, v2, otherVertex, RGB.getRandom()));
         }
         return new Object({"newVertexes": newVertexes, "newEdges": newEdges, "newTriangles": new Set(), "newRectangles": newRectangles});
     }
@@ -58,7 +58,7 @@ class Plane {
         const edgesNotSandwiched = vertex.getAllAdjacentEdgesNotSandwichedFrom(this);
         const vertexes = vertex.getVertexesOtherThanMySelfFrom(Edge.getAllVertexesOf(edgesNotSandwiched));
         const newEdge = new Edge(Array.from(vertexes)[0], Array.from(vertexes)[1]);
-        const newTriangle = new Triangle(vertex, Array.from(vertexes)[0], Array.from(vertexes)[1], Array.from(edgesNotSandwiched)[0], newEdge, Array.from(edgesNotSandwiched)[1]);
+        const newTriangle = new Triangle(vertex, Array.from(vertexes)[0], Array.from(vertexes)[1], RGB.getRandom());
         return new Object({"newVertexes": new Set(), "newEdges": new Set([newEdge]), "newTriangles": new Set([newTriangle]), "newRectangles": new Set()});
     }
 
@@ -71,8 +71,8 @@ class Plane {
         const newEdge2 = new Edge(newVertex, otherVertexesArr[0]);
         const newEdge3 = new Edge(newVertex, otherVertexesArr[1]);
         const edgeArr = Array.from(edgesNotSandwiched)
-        const newTriangle1 = new Triangle(newVertex, edgeArr[0].v1, edgeArr[0].v2);
-        const newTriangle2 = new Triangle(newVertex, edgeArr[1].v1, edgeArr[1].v2);
+        const newTriangle1 = new Triangle(newVertex, edgeArr[0].v1, edgeArr[0].v2, RGB.getRandom());
+        const newTriangle2 = new Triangle(newVertex, edgeArr[1].v1, edgeArr[1].v2, RGB.getRandom());
         return new Object({"newVertexes": new Set([newVertex]), "newEdges": new Set([newEdge1, newEdge2, newEdge3]), "newTriangles": new Set([newTriangle1, newTriangle2]), "newRectangles": new Set()});
     }
 
@@ -83,7 +83,7 @@ class Plane {
         const newVertex = Vertex.getTheOtherVertexOfRhombusFrom(vertex, Array.from(otherVertexes)[0], Array.from(otherVertexes)[1]);
         const newEdge1 = new Edge(newVertex, Array.from(otherVertexes)[0]);
         const newEdge2 = new Edge(newVertex, Array.from(otherVertexes)[1]);
-        const newRectangle = new Rectangle(vertex, Array.from(otherVertexes)[0], newVertex, Array.from(otherVertexes)[1]);
+        const newRectangle = new Rectangle(vertex, Array.from(otherVertexes)[0], newVertex, Array.from(otherVertexes)[1], RGB.getRandom());
         return new Object({"newVertexes": new Set([newVertex]), "newEdges": new Set([newEdge1, newEdge2]), "newTriangles": new Set(), "newRectangles": new Set([newRectangle])});
     }
 

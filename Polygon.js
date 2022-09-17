@@ -1,5 +1,5 @@
 class Polygon {
-  constructor(vertexes, edges) {
+  constructor(vertexes, edges, RGB) {
     Object.defineProperty(
       this,
       'vertexes', {
@@ -10,6 +10,12 @@ class Polygon {
       this,
       'edges', {
         value: edges
+      }
+    );
+    Object.defineProperty(
+      this,
+      'RGB', {
+        value: RGB
       }
     );
   }

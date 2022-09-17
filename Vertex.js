@@ -137,7 +137,7 @@ class Vertex {
     }
 
     draw() {
-        fill(color("#00FF00"));
-        circle(this.x, this.y, 5);
+        // fill(color("#00FF00")); 
+        // circle(this.x, this.y, SCALE / 10);
     }
 }
